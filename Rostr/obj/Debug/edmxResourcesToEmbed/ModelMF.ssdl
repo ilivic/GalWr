@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GaleItem">
+    <Key>
+      <PropertyRef Name="id_GI" />
+    </Key>
+    <Property Name="id_GI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="text" Nullable="false" />
+    <Property Name="Photo" Type="image" Nullable="false" />
+    <Property Name="User_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Items">
+    <Key>
+      <PropertyRef Name="id_item" />
+    </Key>
+    <Property Name="id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Infos" Type="text" Nullable="false" />
+    <Property Name="Param" Type="text" Nullable="false" />
+    <Property Name="facePhoto" Type="image" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_GaleItem_Items">
+    <End Role="Items" Type="Self.Items" Multiplicity="1" />
+    <End Role="GaleItem" Type="Self.GaleItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="GaleItem">
+        <PropertyRef Name="User_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ModelContainer">
+    <EntitySet Name="GaleItem" EntityType="Self.GaleItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_GaleItem_Items" Association="Self.FK_GaleItem_Items">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="GaleItem" EntitySet="GaleItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
